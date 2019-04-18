@@ -1,8 +1,27 @@
 
 
 
+$( "h1" ).click(function() {
+  var htmlString = $( this ).html();
+  $( this ).text( htmlString );
+});
+  
+
 
 $(document).ready(function () {
+
+
+        // // Initialize select2
+        // $("#Search").select2();
+
+        // // Read selected option
+        // $('#but_read').click(function () {
+        //     var coin = $('#Search option:selected').text();
+        //     var id = $('#Search').val();
+
+        //     $('#AddCard').html("id : " + id + ", name : " + coin);
+
+        // });
 
     function toggleOn() {
         $('#toggle-trigger').bootstrapToggle('on')
@@ -10,49 +29,38 @@ $(document).ready(function () {
     }
     function toggleOff() {
         $('#toggle-trigger').bootstrapToggle('off')
-    } 
+    }
 
-// All Coins
+    // All Coins
     $("#ALL").click(function () {
-        var ALL = `https://api.coingecko.com/api/v3/exchange_rates`;
+
+        var ALL = `https://api.coingecko.com/api/v3/coins`;
         $.ajax({
             type: "GET",
             url: ALL,
             async: false,
             success: function (response) {
-                max = response.length;
-                $(".row").attr({ "max": 100, "min": 1 })
-                var rates = response.rates;
-                console.log(max, rates.btc);
-                
+                console.log(response);
 
-                rates.forEach(element => {
-                    console.log();
-                    
+                for (let i = 0; i <= response.length; i++) {
+
+                    // var current_price = JSON.stringify(response.market_data.current_price);
                     $("#AddCard").append(`
-                
                     <div class="card col-sm-4">
                         <div class="card-body">
-                            <h4 class="card-title">${btc.name}</h4>
+                            <h2 class="card-title">${response[i].name}</h2>
                             <!-- radio -->
                             <div class="float-right">
                             <input type="checkbox" checked data-toggle="toggle" data-style="ios" id="toggle-trigger">
                                 <!-- content to show/hide -->
                             </div>
-                            <p class="card-text">Some example text. Some example text.</p>
-                            <div class="row, justify-content-center">
+                            <h5 class="card-text">Symbol : ${response[i].symbol} <img src="${response[i].image.thumb}" alt="" srcset=""></h5>
+                            <div class="row, justify-content-center ">
                                 <div id="summary">
-                                    <p class="collapse" id="collapseSummary">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porttitor maximus
-                                        laoreet. Pellentesque habitant morbi tristique senectus et netus et malesuada
-                                        fames
-                                        ac turpis egestas. In hac habitasse platea dictumst. Suspendisse venenatis
-                                        sollicitudin erat in gravida. Sed eget nisl tristique, commodo lectus sit amet,
-                                        vulputate sem. Cras porttitor lorem ipsum, sit amet iaculis massa feugiat vitae.
-                                        Curabitur sapien odio, ullamcorper tincidunt interdum vitae, vestibulum eu
-                                        neque.
-                                        Nam leo massa, fringilla eget mauris feugiat, auctor suscipit justo.
-                                    </p>
+                                    <h6 class="collapse" id="collapseSummary">
+                                    USD : ${response[i].market_data.current_price.usd} $  </br>
+                                    EUR : ${response[i].market_data.current_price.eur} €  </br>
+                                    ILS : ${response[i].market_data.current_price.ils} ₪ </h6>
                                     <a class="collapsed" data-toggle="collapse" href="#collapseSummary"
                                         aria-expanded="false" aria-controls="collapseSummary"></a>
                                 </div>
@@ -63,16 +71,13 @@ $(document).ready(function () {
                     </div>
 
                     `);
-
-                });
-
-
+                }
             },
-            fail: function (result) {
-                alert("lo");
+            fail: function (response) {
+                alert("הכנס שם מטבעה ");
             },
-            error: function (result) {
-                alert("lolo");
+            error: function (response) {
+                alert("הכנס שם מטבעה");
 
             },
 
@@ -88,35 +93,27 @@ $(document).ready(function () {
             url: URL,
             async: false,
             success: function (response) {
-                max = response.length;
-                $(".row").attr({ "max": 100, "min": 1 })
-                if (response = NaN) {
-                    alert("You need to insert a number between 1-100");
-                } console.log(max, response);
-                $("#AddCard").append(`
-                
+                [response.id].forEach(element => {
+                    console.log(response);
+                    var current_price = JSON.stringify(response.market_data.current_price);
+                    console.log(current_price);
+
+                    $("#AddCard").html(`
                     <div class="card col-sm-4">
                         <div class="card-body">
-                            <h4 class="card-title">Card title</h4>
+                            <h2 class="card-title">${response.name}</h2>
                             <!-- radio -->
                             <div class="float-right">
                             <input type="checkbox" checked data-toggle="toggle" data-style="ios" id="toggle-trigger">
                                 <!-- content to show/hide -->
                             </div>
-                            <p class="card-text">Some example text. Some example text.</p>
-                            <div class="row, justify-content-center">
+                            <h5 class="card-text">Symbol : ${response.symbol} <img src="${response.image.thumb}" alt="" srcset=""></h5>
+                            <div class="row, justify-content-center ">
                                 <div id="summary">
-                                    <p class="collapse" id="collapseSummary">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porttitor maximus
-                                        laoreet. Pellentesque habitant morbi tristique senectus et netus et malesuada
-                                        fames
-                                        ac turpis egestas. In hac habitasse platea dictumst. Suspendisse venenatis
-                                        sollicitudin erat in gravida. Sed eget nisl tristique, commodo lectus sit amet,
-                                        vulputate sem. Cras porttitor lorem ipsum, sit amet iaculis massa feugiat vitae.
-                                        Curabitur sapien odio, ullamcorper tincidunt interdum vitae, vestibulum eu
-                                        neque.
-                                        Nam leo massa, fringilla eget mauris feugiat, auctor suscipit justo.
-                                    </p>
+                                    <h6 class="collapse" id="collapseSummary">
+                                    USD : ${response.market_data.current_price.usd} $  </br>
+                                    EUR : ${response.market_data.current_price.eur} €  </br>
+                                    ILS : ${response.market_data.current_price.ils} ₪ </h6>
                                     <a class="collapsed" data-toggle="collapse" href="#collapseSummary"
                                         aria-expanded="false" aria-controls="collapseSummary"></a>
                                 </div>
@@ -126,16 +123,20 @@ $(document).ready(function () {
     
                     </div>
 
-                `);
+                    `);
+
+                });
+
 
             },
-            fail: function (result) {
-                alert("lo");
+            fail: function (response) {
+                alert("הכנס שם מטבעה");
             },
-            error: function (result) {
-                alert("lolo");
+            error: function (response) {
+                alert("הכנס שם מטבעה");
 
             },
+
 
         });
 

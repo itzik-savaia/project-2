@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="input.html">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -22,15 +23,16 @@
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark nav justify-content-center">
             <ul class="navbar-nav">
                 <li class="nav-item ">
-                    <a class="nav-link" href="coins">מטבעות</a>
+                    <a class="nav-link" href="#" id="coin">מטבעות</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="reports">דוחות בזמן אמת</a>
+                    <a class="nav-link" href="#" id="reports">דוחות בזמן אמת</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://127.0.0.1:5500/app.html/about">אודות</a>
+                    <a class="nav-link" href="#" id="about">אודות</a>
                 <li class="nav-item">
-                    <input class="form-control" type="text" placeholder="חפש" id="Search">
+                    <input class="form-control" type="search" placeholder="חפש" id="Search"
+                    onkeyup="myFunction() ">
                 </li>
                 <li class="nav-item">
                     <button class="btn btn-dark" type="submit" id="SearchBut">חיפוש</button>
@@ -42,51 +44,18 @@
     <div class="parallax"></div>
 
     <div class="text-center">
-        <h1>My First Bootstrap Page</h1>
+        <h1 id="text">My First Bootstrap Page</h1>
         <p>Resize this responsive page to see the effect!</p>
         <button class="btn btn-dark" type="submit" id="ALL">כל המטבעות</button>
     </div>
     <!-- <div id="AddCard"> -->
         <div class="container justify-content-center" >
             <div class="row" id="AddCard">
-                <div class="card col-sm-4">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <!-- radio -->
-                        <div class="float-right">
-                            <input type="checkbox" checked data-toggle="toggle" data-style="ios" id="toggle-trigger">
-                            <!-- content to show/hide -->
-                        </div>
-                        <p class="card-text">Some example text. Some example text.</p>
-                        <div class="row, justify-content-center">
-                            <div id="summary">
-                                <p class="collapse" id="collapseSummary">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porttitor maximus
-                                    laoreet. Pellentesque habitant morbi tristique senectus et netus et malesuada
-                                    fames
-                                    ac turpis egestas. In hac habitasse platea dictumst. Suspendisse venenatis
-                                    sollicitudin erat in gravida. Sed eget nisl tristique, commodo lectus sit amet,
-                                    vulputate sem. Cras porttitor lorem ipsum, sit amet iaculis massa feugiat vitae.
-                                    Curabitur sapien odio, ullamcorper tincidunt interdum vitae, vestibulum eu
-                                    neque.
-                                    Nam leo massa, fringilla eget mauris feugiat, auctor suscipit justo.
-                                </p>
-                                <a class="collapsed" data-toggle="collapse" href="#collapseSummary"
-                                    aria-expanded="false" aria-controls="collapseSummary"></a>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
             </div>
 
         </div>
         
     </div>
-
 
 </body>
 
