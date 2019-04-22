@@ -1,89 +1,114 @@
 
 
-
-$( "h1" ).click(function() {
-  var htmlString = $( this ).html();
-  $( this ).text( htmlString );
-});
-  
-
-
 $(document).ready(function () {
 
+    $("#coin").click(function () {
+        $(".text-center").html(`
+        
+            <h1>מטבעות</h1>
+            <img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit">
 
-        // // Initialize select2
-        // $("#Search").select2();
+            
+        </div>
+    
+        
+        `);
+    });
 
-        // // Read selected option
-        // $('#but_read').click(function () {
-        //     var coin = $('#Search option:selected').text();
-        //     var id = $('#Search').val();
+    $("#reports").click(function () {
+        $(".text-center").html(`
+        
+            <h1>דוחות בזמן אמת</h1>
+            <img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit">
 
-        //     $('#AddCard').html("id : " + id + ", name : " + coin);
+            
+        </div>
+    
+        
+        `);
+    });
+    $("#about").click(function () {
+        $(".text-center").html(`
+            
+            <h1>פרוייקט-2</h1>
+            <img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה"  class="animationbit">
+            <h3>איציק סביה
+                תז-311320311
+            </h3>
+            <h6>api.coingecko.com-פרוייקט דיווח מצב בטבעות לפי זמן נתון דרך אתר</h6>
+            
+        </div>
+    
+        `);
+    });
 
-        // });
-
-    function toggleOn() {
-        $('#toggle-trigger').bootstrapToggle('on')
-        $('#collapseSummary').html('Toggle: ' + $(this).prop('checked'))
-    }
-    function toggleOff() {
-        $('#toggle-trigger').bootstrapToggle('off')
-    }
 
     // All Coins
-    $("#ALL").click(function () {
+    $("#coin").click(function () {
 
-        var ALL = `https://api.coingecko.com/api/v3/coins`;
+        var ALL = `https://api.coingecko.com/api/v3/coins/list`;
         $.ajax({
             type: "GET",
             url: ALL,
             async: false,
-            success: function (response) {
-                console.log(response);
+            success: function (data) {
+                for (var num = 0, newdata = 50; num <= newdata; num++) {
+                    $("#row2").append(`
+                    <div class="card col-sm-4" id="${num}">
 
-                for (let i = 0; i <= response.length; i++) {
-
-                    // var current_price = JSON.stringify(response.market_data.current_price);
-                    $("#AddCard").append(`
-                    <div class="card col-sm-4">
                         <div class="card-body">
-                            <h2 class="card-title">${response[i].name}</h2>
+
+                            <h2 class="card-title">${data[num].name}</h2>
+                            <h5 class="card-title" id="CoinId">${data[num].id}</h5>
                             <!-- radio -->
                             <div class="float-right">
-                            <input type="checkbox" checked data-toggle="toggle" data-style="ios" id="toggle-trigger">
-                                <!-- content to show/hide -->
+                                <input type="checkbox" checked data-toggl="toggle" data-style="ios" id="toggle-trigger">
                             </div>
-                            <h5 class="card-text">Symbol : ${response[i].symbol} <img src="${response[i].image.thumb}" alt="" srcset=""></h5>
-                            <div class="row, justify-content-center ">
-                                <div id="summary">
-                                    <h6 class="collapse" id="collapseSummary">
-                                    USD : ${response[i].market_data.current_price.usd} $  </br>
-                                    EUR : ${response[i].market_data.current_price.eur} €  </br>
-                                    ILS : ${response[i].market_data.current_price.ils} ₪ </h6>
-                                    <a class="collapsed" data-toggle="collapse" href="#collapseSummary"
-                                        aria-expanded="false" aria-controls="collapseSummary"></a>
-                                </div>
+                            <h5 class="card-text">Symbol :  ${data[num].symbol}</h5>
+                            <div class="row, justify-content-center">
+                                <div id="demo${num}" class="collapse in"></div>
+                                <button type="button" class="btn btn-info collapsed" data-toggle="collapse" data-target="#demo${num}"></button>
+
                             </div>
     
                         </div>
     
                     </div>
-
                     `);
+                    
+
                 }
-            },
-            fail: function (response) {
-                alert("הכנס שם מטבעה ");
-            },
-            error: function (response) {
-                alert("הכנס שם מטבעה");
 
             },
-
         });
-
     });
+    
+    $("body").on('click', '.collapsed', function () {
+        var CoinName =  $(this).parent().parent().find("#CoinId").html();
+        var datato = $(this).attr("data-target");
+        console.log(CoinName);
+        $.ajax({
+            type: "GET",
+            url: `https://api.coingecko.com/api/v3/coins/`+CoinName,
+            success: function (response) {
+                $("body").find(`${datato}`).html(`
+                        <div class="row, justify-content-center" >
+
+                                <h6>
+                                    USD : ${response.market_data.current_price.usd} $  </br>
+                                    EUR : ${response.market_data.current_price.eur} €  </br>
+                                    ILS : ${response.market_data.current_price.ils} ₪  </br>
+                                </h6>
+                        </div>
+                    </div>
+                </div>
+            `);console.log(response.market_data.current_price.usd);
+        }
+        });
+    });
+
+    
+
     // one Coin
     $("#SearchBut").click(function () {
         var INPUT = $("#Search").val();
@@ -98,25 +123,21 @@ $(document).ready(function () {
                     var current_price = JSON.stringify(response.market_data.current_price);
                     console.log(current_price);
 
-                    $("#AddCard").html(`
+                    $("#row1").html(`
                     <div class="card col-sm-4">
                         <div class="card-body">
                             <h2 class="card-title">${response.name}</h2>
                             <!-- radio -->
                             <div class="float-right">
                             <input type="checkbox" checked data-toggle="toggle" data-style="ios" id="toggle-trigger">
-                                <!-- content to show/hide -->
                             </div>
                             <h5 class="card-text">Symbol : ${response.symbol} <img src="${response.image.thumb}" alt="" srcset=""></h5>
-                            <div class="row, justify-content-center ">
-                                <div id="summary">
+                            <div class="row, justify-content-center" id="summary">
                                     <h6 class="collapse" id="collapseSummary">
                                     USD : ${response.market_data.current_price.usd} $  </br>
                                     EUR : ${response.market_data.current_price.eur} €  </br>
                                     ILS : ${response.market_data.current_price.ils} ₪ </h6>
-                                    <a class="collapsed" data-toggle="collapse" href="#collapseSummary"
-                                        aria-expanded="false" aria-controls="collapseSummary"></a>
-                                </div>
+                                    <a class="collapsed" data-toggle="collapse" href="#collapseSummary" aria-expanded="false" aria-controls="collapseSummary"></a>
                             </div>
     
                         </div>

@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="input.html">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
+    <!-- <script src="/input.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
+    <!-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> -->
 </head>
 
 <body>
@@ -31,8 +32,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#" id="about">אודות</a>
                 <li class="nav-item">
-                    <input class="form-control" type="search" placeholder="חפש" id="Search"
-                    onkeyup="myFunction() ">
+                    <input class="form-control" type="search" placeholder="חפש" id="Search" onkeyup="myFunction() ">
                 </li>
                 <li class="nav-item">
                     <button class="btn btn-dark" type="submit" id="SearchBut">חיפוש</button>
@@ -42,20 +42,20 @@
         </nav>
     </div>
     <div class="parallax"></div>
-
     <div class="text-center">
-        <h1 id="text">My First Bootstrap Page</h1>
-        <p>Resize this responsive page to see the effect!</p>
-        <button class="btn btn-dark" type="submit" id="ALL">כל המטבעות</button>
-    </div>
-    <!-- <div id="AddCard"> -->
-        <div class="container justify-content-center" >
-            <div class="row" id="AddCard">
-            </div>
+        <h1 id="text">רשימת מטבעות</h1>
 
-        </div>
-        
+        <img src="/img/Bitcoin animation.gif" alt="מטבעה" class="animationbit"><img src="/img/Bitcoin animation.gif"
+            alt="מטבעה" class="animationbit"><img src="/img/Bitcoin animation.gif" alt="מטבעה" class="animationbit"><img
+            src="/img/Bitcoin animation.gif" alt="מטבעה" class="animationbit"><img src="/img/Bitcoin animation.gif"
+            alt="מטבעה" class="animationbit">
     </div>
+    <!-- <הוספת כרטיס> -->
+    <div class="container justify-content-center">
+        <div class="row" id="row1"></div>
+        <div class="row" id="row2"></div>
+    </div>
+
 
 </body>
 
