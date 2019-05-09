@@ -1,5 +1,7 @@
 var timearr = [];
-
+var checked = [];
+var arr = [];
+var CoinName;
 $(document).ready(function() {
   $("#coin").click(function() {
     $(".text-center").html(`
@@ -38,8 +40,8 @@ $(document).ready(function() {
         </div>
         `);
   });
-  // All Coins
 
+  ////////////////All-Coins////////////////
   $("#coin").click(function() {
     $.ajax({
       type: "GET",
@@ -56,7 +58,8 @@ $(document).ready(function() {
                             }</h5>
                             <!-- radio -->
                             <div class="float-right">
-                                <input id="toggle-one${num}" type="checkbox" checked data-toggle="toggle" data-style="ios">
+                              <input id="toggle-event" type="checkbox" data-toggle="toggle" style="color:red">
+                            </div>
                             </div>
                             <h5 class="card-text">Symbol :  ${
                               data[num].symbol
@@ -68,22 +71,19 @@ $(document).ready(function() {
                         </div>
                     </div>
                     `);
-        }
+        } ////////////////All-Coins////////////////
       }
     });
   });
 
   $("body").on("click", ".collapsed", function() {
-    var CoinName = $(this)
+    CoinName = $(this)
       .parent()
       .parent()
       .find("#CoinId")
       .html();
     var collapsed = $(this).hasClass(".collapsed");
     var dataid = $(this).attr("data-target");
-    var checked = $(this)
-      .parent()
-      .find(checked);
 
     ////////////////time////////////////
     var newDate = new Date();
@@ -91,6 +91,7 @@ $(document).ready(function() {
     console.log("time-now", timenow);
     ////////////////time////////////////
 
+    ////////////////AJAX-Coins///////////////
     if (!collapsed) {
       if (timearr[dataid] == null || timenow > timearr[dataid]) {
         $.ajax({
@@ -114,7 +115,8 @@ $(document).ready(function() {
                   </div>
               </div>
           </div>
-          `);
+          `); ////////////////AJAX-Coins///////////////
+
             ////////////////timeclike////////////////
             timeClike = newDate.getTime() + 120000; //time on clike to local
             timearr[dataid] = timeClike;
@@ -124,27 +126,53 @@ $(document).ready(function() {
 
             ////////////////localstorage////////////////
             if (typeof Storage !== "undefined") {
-              var arr = JSON.parse(localStorage.getItem("objCoin")) || [];
-              var objCoin = {};
+              arr = JSON.parse(localStorage.getItem("objCoin")) || [];
+              objCoin = {};
               objCoin.TIMECLIKE = timeClike;
               objCoin.USD = response.market_data.current_price.usd;
               objCoin.EUR = response.market_data.current_price.eur;
               objCoin.ILS = response.market_data.current_price.ils;
               objCoin.IMG = response.image.small;
-              arr.push(objCoin);
+              if (arr.length == CoinName) {
+              } else {
+                arr.push(objCoin);
+              }
               localStorage.setItem("objCoin", JSON.stringify(arr));
+              console.log("arr", arr);
             }
-            ////////////////localstorage////////////////
           }
+          ////////////////localstorage////////////////
         });
       }
-      ////////////////toggle////////////////
-      if (checked) {
-      } else {
-      }
-      console.log(checked);
-
-      ////////////////toggle////////////////
     }
   });
+  ////////////////check-toggle////////////////
+  $("body").on("click", "#toggle-event", function() {
+    var toggle = $(this);
+    if (toggle.context.checked) {
+      if (arr.length == CoinName) {
+        if (CoinName == true) {
+        } else {
+          arr.push(CoinName);
+          console.log("CoinName", arr);
+        }
+      } else {
+        if (CoinName == undefined || null) {
+          alert("CoinName is undefind or null");
+          if (toggle.context.checked == true) {
+            toggle.context.checked = false;
+          }
+        }
+      }
+
+      // toggle.push(arr);
+      // console.log("CoinName", arr);
+      // console.log("checked", toggle.context.checked, toggle);
+    } else {
+      // console.log("checked", toggle.context.checked, toggle);
+      // toggle.slice(arr);
+      // console.log("CoinName", arr);
+    }
+  });
+  ////////////////check-toggle///////////////
 });
